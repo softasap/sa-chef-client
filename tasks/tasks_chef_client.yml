@@ -10,7 +10,7 @@
 
 
   - name: CHEF CLIENT | download package
-    get_url: url="https://packages.chef.io/stable/{{ ansible_distribution | lower }}/{{ansible_distribution_version}}/chef_{{ chef_client_version |  default('12.10.24') }}-1_amd64.deb"  dest="/tmp/chef.deb"
+    get_url: validate_certs=false url="https://packages.chef.io/stable/{{ ansible_distribution | lower }}/{{ansible_distribution_version}}/chef_{{ chef_client_version |  default('12.10.24') }}-1_amd64.deb"  dest="/tmp/chef.deb"
     when: chef_check_deb.rc == 1
     tags:
       -chef
