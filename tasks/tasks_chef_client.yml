@@ -1,0 +1,23 @@
+---
+  - name: CHEF CLIENT | Check if is installed
+    command: dpkg-query -W chef
+    register: chef_check_deb
+    become: yes
+    failed_when: chef_check_deb.rc > 1
+    changed_when: chef_check_deb.rc == 1
+    tags:
+      -chef
+
+
+  - name: CHEF CLIENT | download package
+    get_url: url="https://packages.chef.io/stable/{{ ansible_distribution | lower }}/{{ansible_distribution_version}}/chef_{{ chef_client_version |  default('12.10.24') }}-1_amd64.deb"  dest="/tmp/chef.deb"
+    when: chef_check_deb.rc == 1
+    tags:
+      -chef
+
+  - name: CHEF CLIENT | install package
+    apt: deb="/tmp/chef.deb"
+    become: true
+    when: chef_check_deb.rc == 1
+    tags:
+      -chef

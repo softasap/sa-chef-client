@@ -1,0 +1,19 @@
+---
+- hosts: www
+
+  vars:
+    - root_dir: ..
+
+
+  pre_tasks:
+    - debug: msg="Pre tasks section"
+
+  roles:
+     - {
+         role: "sa-chef-client",
+         chef_client_version: "12.10.24"
+       }
+
+
+  tasks:
+    - debug: msg="Tasks section"

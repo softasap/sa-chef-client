@@ -1,0 +1,4 @@
+[submodule "roles/sa-chef-client"]
+        path = roles/sa-chef-client
+        url = https://github.com/softasap/sa-chef-client.git
+
